@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.college.converter.databinding.ActivityMainBinding;
 
 /*
     TODOs:
@@ -27,13 +30,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     static private final Float CONVERSION_RATE = 0.80F;
+    private ActivityMainBinding variableBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "oncreate() - Entry");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonConvert = findViewById(R.id.convertButton);
+        variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(variableBinding.getRoot());
+
+        Button buttonConvert = variableBinding.convertButton;
+
 
         buttonConvert.setOnClickListener( view ->  {
             convertCurrency(view);
@@ -44,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
     public void convertCurrency(View view) {
         Log.i(TAG, "convertCurrency() - Entry");
 
-        EditText inputView = findViewById(R.id.entryId);
+        EditText inputView = variableBinding.entryId;
 
         String inputAmount = inputView.getText().toString();
 
-        TextView resultView = findViewById(R.id.resultId);
+        TextView resultView = variableBinding.resultId;
 
         if (!inputAmount.isEmpty()) {
             Float inputAmountDecimal = Float.valueOf(inputAmount);
